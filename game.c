@@ -33,6 +33,7 @@ int proList[12];
 int initial();
 int next;
 int loop();
+char name[16];
 
 int main(int argc, char **argv){
 
@@ -56,7 +57,6 @@ int menu(){
 		switch(m){
 			case 1:
 				printf("What is you nickname: \n");
-				char name[16];
 				scanf("%15s", name);
 				printf("Alright, %s, let start!\n", name);
 				game(name);
@@ -96,6 +96,12 @@ int game(char *name){
 
 int loop(){
 	int rd = roleDecision();
+	printf("%d\n",rd);
+	if(rd == 0){
+		game(name);
+		return 0;
+	}
+
 	
 
 	return 0;
@@ -350,7 +356,7 @@ int roleDecision(){
 			who = 1;
 		}
 		else{
-			who = 0
+			who = 0;
 		}
 		if(decision(2) == 1){
 			who = 2;
@@ -409,7 +415,7 @@ int roleDecision(){
 } 
 int decision(int a){
 	if(a == 1){
-		draw("","Do you want to grab the landlord? 1. Yes 2. No");
+		draw("Do you want to grab the landlord? 1. Yes 2. No","");
 		int yn;
 		scanf("%d", &yn);	
 		if(yn == 1){
@@ -420,10 +426,20 @@ int decision(int a){
 		}
 	}
 	else if(a == 2){
-
+		for(int i = 0; i < cardSize(player2); i++){
+		printf("|(%d)[",i+1);
+		showCard(i,player2);
+		printf("]");
+		}
+		printf("\n");
 	}
 	else if(a == 3){
-
+		for(int i = 0; i < cardSize(player3); i++){
+		printf("|(%d)[",i+1);
+		showCard(i,player3);
+		printf("]");
+		}
+		printf("\n");
 	}
 }
 int draw(char *ins, char *mess){
@@ -431,17 +447,17 @@ int draw(char *ins, char *mess){
 	int c2 = cardSize(player3);
 	int c = cardSize(player1);
 	
-			printf("________________________________________________________________________________________________________________________________________________\n\n");	
+			printf("_____________________________________________________________________________________________________________________________________________________\n\n");	
 	
 	printf("		Last 3 Round:\n");
 	printf("		Last 2 Round:\n");
 	printf("		Last 1 Round:\n");
 	printf("		This   Round:\n");
-	printf("________________________________________________________________________________________________________________________________________________\n\n");
+	printf("_____________________________________________________________________________________________________________________________________________________\n\n");
 	printf("Computer 1								Computer 2\nRole: %s								Role: %s\nCards left: %d 								Cards Left: %d\n",cr1,cr2,c1,c2);
-	printf("________________________________________________________________________________________________________________________________________________\n\n");	
+	printf("_____________________________________________________________________________________________________________________________________________________\n\n");	
 	printf("Game Instructor: %s\n", ins);
-	printf("________________________________________________________________________________________________________________________________________________\n");
+	printf("_____________________________________________________________________________________________________________________________________________________\n");
 	
 	printf("Card Left: %d     Role: %s\n",c,cr);
 	int i;
@@ -451,8 +467,9 @@ int draw(char *ins, char *mess){
 		printf("]");
 	}
 	printf("|(0)[SKIP]\n");
-	printf("________________________________________________________________________________________________________________________________________________\nEnter Number for discarding, 0 means SKIP, H for Heart, D for Diamond, S for Spade, C for Club\n");
-	printf("________________________________________________________________________________________________________________________________________________\n\n Game Message: &s\n", mess);
+	printf("_____________________________________________________________________________________________________________________________________________________\nEnter Number for discarding, 0 means SKIP, H for Heart, D for Diamond, S for Spade, C for Club\n");
+	printf("_____________________________________________________________________________________________________________________________________________________\n\nGame Message: %s\n", mess);
+	printf("_____________________________________________________________________________________________________________________________________________________\n\nYour Instruction:");
 	return 0;
 }
 
